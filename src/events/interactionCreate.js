@@ -3,28 +3,6 @@ module.exports = {
     async execute(interaction) {
         if (!interaction.isChatInputCommand()) return;
 
-        if (!interaction.guild) {
-            return interaction.reply("I only work on discord guilds/servers. Sorry about that :)");
-        }
-
-        const guildRoles = await interaction.guild.roles.fetch();
-        const roleManager = interaction.member.roles;
-        const roles = [];
-        guildRoles.map((a) => {
-            const temp = roleManager.resolve(a.id);
-            if (temp != null) {
-                roles.push(temp.name);
-            }
-        });
-
-        const isOrganiser = roles.some((a) => {
-            return a === "Organiser";
-        });
-
-        if (!isOrganiser) {
-            return interaction.reply("You're not an organiser so you can't use this bot.");
-        }
-
         const command = interaction.client.commands.get(interaction.commandName);
 
         try {
